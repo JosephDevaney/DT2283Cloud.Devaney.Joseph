@@ -1,0 +1,7 @@
+*
+!*/
+!*.java
+!*.html
+!*.xml
+!*.jsp
+!.gitignore
