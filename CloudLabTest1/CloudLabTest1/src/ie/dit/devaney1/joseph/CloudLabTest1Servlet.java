@@ -15,7 +15,7 @@ public class CloudLabTest1Servlet extends HttpServlet {
 		String dString = req.getParameter("D");
 		
 		int a, b, c, d;
-		/*
+		
 		if(checkParameters(aString, bString, cString, dString) == false)
 		{
 			aString = getServletConfig().getInitParameter("A");
@@ -23,7 +23,6 @@ public class CloudLabTest1Servlet extends HttpServlet {
 			cString = getServletConfig().getInitParameter("C");
 			dString = getServletConfig().getInitParameter("D");
 		}
-		*/
 		
 		
 		resp.setContentType("text/plain");
