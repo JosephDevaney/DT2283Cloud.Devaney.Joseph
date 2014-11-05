@@ -14,6 +14,8 @@ public class CloudLabTest1Servlet extends HttpServlet {
 		String cString = req.getParameter("C");
 		String dString = req.getParameter("D");
 		
+		int a, b, c, d;
+		/*
 		if(checkParameters(aString, bString, cString, dString) == false)
 		{
 			aString = getServletConfig().getInitParameter("A");
@@ -21,11 +23,41 @@ public class CloudLabTest1Servlet extends HttpServlet {
 			cString = getServletConfig().getInitParameter("C");
 			dString = getServletConfig().getInitParameter("D");
 		}
-		
+		*/
 		
 		
 		resp.setContentType("text/plain");
-		resp.getWriter().println("Hello, world");
+
+		try
+		{
+			a = Integer.parseInt(aString);
+			b = Integer.parseInt(bString);
+			c = Integer.parseInt(cString);
+			d = Integer.parseInt(dString);
+			
+			long lAB, lCD, labcd;
+			
+			lAB = a - b;
+			lCD = c - d;
+			labcd = lAB * lCD;
+			
+			if ((lAB > Integer.MAX_VALUE || lAB < Integer.MIN_VALUE) ||
+					(lCD > Integer.MAX_VALUE || lCD < Integer.MIN_VALUE) ||
+					(labcd > Integer.MAX_VALUE || labcd < Integer.MIN_VALUE)
+				)
+			{
+				throw new NumberFormatException("Result is too big.");
+			}
+			else
+			{
+				resp.getWriter().println("Hello, I'm the Maths servlet");
+				resp.getWriter().println("(" + a + " - " + b + ") * (" + c + " - " + d + ") = (" + lAB + " * " + lCD + ") = " + labcd);
+			}
+		}
+		catch (NumberFormatException e)
+		{
+			resp.getWriter().println("Error: Arguments/results of the arguments is not a number within the accepted 32 bit range.");
+		}
 	}
 
 	private boolean checkParameters(String a, String b, String c, String d) 
@@ -55,7 +87,9 @@ public class CloudLabTest1Servlet extends HttpServlet {
 			num = Integer.parseInt(d);
 			
 			
-		} catch (NumberFormatException e) {
+		}
+		catch (NumberFormatException e) 
+		{
 			return false;
 		}
 		
