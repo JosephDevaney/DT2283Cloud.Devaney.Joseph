@@ -12,6 +12,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 public class Serve extends HttpServlet
 {
+	private static final long serialVersionUID = 1L;
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
 

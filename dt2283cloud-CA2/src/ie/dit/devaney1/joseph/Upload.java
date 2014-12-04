@@ -23,7 +23,6 @@ public class Upload extends HttpServlet
 			throws ServletException, IOException
 	{
 
-		@SuppressWarnings("deprecation")
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("myFile");
 
@@ -48,7 +47,8 @@ public class Upload extends HttpServlet
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			res.sendRedirect("/serve?blob-key=" + blobKeys.get(0).getKeyString());
+			res.sendRedirect("/getblobs");
+			//res.sendRedirect("/serve?blob-key=" + blobKeys.get(0).getKeyString());
 		}
 
 	}

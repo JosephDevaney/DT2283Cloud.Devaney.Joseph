@@ -14,12 +14,12 @@ public class PictureBoxServlet extends HttpServlet
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException
 	{
-		resp.setContentType("text/plain"); // Set the context of the response to plain text
-		resp.getWriter().println("Has it changed?"); // Get a writer to print the response
+		resp.setContentType("text/plain"); 								// Set the context of the response to plain text
+		resp.getWriter().println("Has it changed?"); 					// Get a writer to print the response
 
-		UserService userService = UserServiceFactory.getUserService(); // Create a UserServiceFactory object
+		UserService userService = UserServiceFactory.getUserService(); 	// Create a UserServiceFactory object
 
-		Principal myPrincipal = req.getUserPrincipal(); // Get the request User Principal
+		Principal myPrincipal = req.getUserPrincipal(); 				// Get the request User Principal
 		String emailAddress = null; // Create null string reference
 
 		String thisURL = req.getRequestURI(); // Get the requested URI
