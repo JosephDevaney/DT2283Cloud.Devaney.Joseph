@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.images.Composite;
 import com.google.appengine.api.images.IImagesServiceFactory;
 import com.google.appengine.api.images.Image;
@@ -25,6 +27,9 @@ import com.google.appengine.api.images.OutputSettings;
 import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.appengine.api.images.Transform;
 import com.google.appengine.api.images.ImagesService.OutputEncoding;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 public class GetBlobs extends HttpServlet
 {
@@ -34,19 +39,21 @@ public class GetBlobs extends HttpServlet
 			throws IOException
 	{
 		Iterator<BlobInfo> blobInfos = new BlobInfoFactory().queryBlobInfos();
+		
 		ImagesService imageService = ImagesServiceFactory.getImagesService();
-
+		
 		List<String> blobNames = new ArrayList<>();
 		List<String> images = new ArrayList<>();
-
+		
 		BlobInfo b = null;
 		while (blobInfos.hasNext())
 		{
 			b = blobInfos.next();
-			//images.add(ImagesServiceFactory.makeImageFromBlob(b.getBlobKey()));
+			// images.add(ImagesServiceFactory.makeImageFromBlob(b.getBlobKey()));
 			if (!(b.getFilename().equals("usGLU.jpg")))
 			{
-				images.add(imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(b.getBlobKey())));
+				images.add(imageService.getServingUrl(ServingUrlOptions.Builder
+						.withBlobKey(b.getBlobKey())));
 				blobNames.add(b.getFilename());
 			}
 		}
@@ -55,6 +62,6 @@ public class GetBlobs extends HttpServlet
 		sess.setAttribute("images", images);
 		res.sendRedirect("showPictures.jsp");
 	}
-		//delete usGLU.jpg
+	// delete usGLU.jpg
 
 }
