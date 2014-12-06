@@ -57,6 +57,7 @@ public class PictureBoxServlet extends HttpServlet
 			{
 				session.setAttribute("userType", "loggedIn");
 			}
+			session.setAttribute("userID", user.getUserId());
 			resp.sendRedirect("/upload.jsp");
 		} // end if logged in
 	}

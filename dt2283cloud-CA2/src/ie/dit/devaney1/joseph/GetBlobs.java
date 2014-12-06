@@ -37,12 +37,13 @@ public class GetBlobs extends HttpServlet
 		UserService userService = UserServiceFactory.getUserService();
 		ImagesService imageService = ImagesServiceFactory.getImagesService();
 		
-		List<String> blobNames = new ArrayList<>();
-		List<String> images = new ArrayList<>();
+		//List<String> blobNames = new ArrayList<>();
+		List<Image> images = new ArrayList<>();
 		
 		BlobInfo b = null;
 		while (blobInfos.hasNext())
 		{
+			Image i;
 			b = blobInfos.next();
 			Key blob = KeyFactory.createKey("blobImage", b.getBlobKey().getKeyString());
 			Boolean isPrivate = false;
@@ -60,13 +61,14 @@ public class GetBlobs extends HttpServlet
 			
 			if (!isPrivate || userService.isUserLoggedIn())
 			{
-				images.add(imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(b.getBlobKey())));
-				blobNames.add(b.getFilename());
+				String imageUrl = imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(b.getBlobKey()));
+				i = new Image(imageUrl, userID, b.getFilename(), isPrivate, b.getBlobKey().getKeyString());
+				images.add(i);
 			}
 				
 		}
+		
 		HttpSession sess = req.getSession();
-		sess.setAttribute("names", blobNames);
 		sess.setAttribute("images", images);
 		res.sendRedirect("showPictures.jsp");
 	}

@@ -1,19 +1,26 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.google.appengine.api.images.Image" %>
-<% ArrayList<String> names = (ArrayList)(request.getSession().getAttribute("names")); %>
-<% ArrayList<String> images = (ArrayList)(request.getSession().getAttribute("images")); %>
+<%@ page import="ie.dit.devaney1.joseph.Image" %>
+<% ArrayList<Image> images = (ArrayList) (request.getSession().getAttribute("images")); %>
 
 <html>
-<head>Show Picture Names</head>
+<head><title>Show Picture Names</title></head>
 <body>
 
 <% 
-	int i = 0;
-	for (String name : names)
+	for (Image image: images)
 	{
-		String image = images.get(i++);
-		%><p><image src="<%= image %>" alt="<%= name %>" ></p><%
-		
+		%><p><image src="<%= image.getUrl() %>" alt="<%= image.getName() %>" ><%
+			
+			if(request.getSession().getAttribute("userID").equals(image.getOwner()) 
+				|| request.getSession().getAttribute("userType").equals("admin"))
+			{%>
+				<form action="deleteImage" method="POST" >
+					<input type="hidden" name="blobkey" value="<%= image.getBlobKey() %>" >
+					<input type="submit" value="Delete" >
+				</form>	
+			<% } %>		
+		</p><%
+
 	}
 	%>
 </body>
