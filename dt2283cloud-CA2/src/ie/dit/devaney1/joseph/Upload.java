@@ -35,6 +35,19 @@ public class Upload extends HttpServlet
 	{
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
 		List<BlobKey> blobKeys = blobs.get("myFile");
+		
+		String isPrivate = req.getParameter("isPrivate");
+		System.out.println("The Blobkey was submitted as " + isPrivate);
+		
+		Boolean privacy = null;
+		if (isPrivate == null)
+		{
+			privacy = false;
+		}
+		else
+		{
+			privacy = true;
+		}
 
 		if (blobKeys == null)
 		{
@@ -44,9 +57,10 @@ public class Upload extends HttpServlet
 		{
 			for (BlobKey blobKey : blobKeys)
 			{
-				Key blob = KeyFactory.createKey("blobImage", userService.getCurrentUser().getUserId());
+				Key blob = KeyFactory.createKey("blobImage", blobKey.getKeyString());
 				Entity image = new Entity(blob);
-				image.setProperty("ownerid", blobKey.getKeyString());
+				image.setProperty("ownerid",  userService.getCurrentUser().getUserId());
+				image.setProperty("isPrivate", privacy);
 				
 				dataStoreService.put(image);
 			}
