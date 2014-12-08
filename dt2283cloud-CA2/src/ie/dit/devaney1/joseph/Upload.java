@@ -37,7 +37,6 @@ public class Upload extends HttpServlet
 		List<BlobKey> blobKeys = blobs.get("myFile");
 		
 		String isPrivate = req.getParameter("isPrivate");
-		System.out.println("The Blobkey was submitted as " + isPrivate);
 		
 		Boolean privacy = null;
 		if (isPrivate == null)
@@ -61,6 +60,7 @@ public class Upload extends HttpServlet
 				Entity image = new Entity(blob);
 				image.setProperty("ownerid",  userService.getCurrentUser().getUserId());
 				image.setProperty("isPrivate", privacy);
+				image.setProperty("blobkey", blobKey);
 				
 				dataStoreService.put(image);
 			}
