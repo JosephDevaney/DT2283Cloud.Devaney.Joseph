@@ -11,8 +11,8 @@
 	 	<form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
 			 <input type="text" name="foo">
 			 <input type="file" name="myFile">
-			 <input type="checkbox" name"isPrivate" value"private" 
-			 	<%	if (request.getSession().getAttribute("userType").toString() != null)
+			 <input type="checkbox" name="isPrivate" value"private" 
+			 	<%	if (request.getSession().getAttribute("userType").toString() != "admin")
 			 		{
 			 			%>checked<%
 			 		}

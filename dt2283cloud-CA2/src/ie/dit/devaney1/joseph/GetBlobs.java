@@ -48,10 +48,12 @@ public class GetBlobs extends HttpServlet
 			Key blob = KeyFactory.createKey("blobImage", b.getBlobKey().getKeyString());
 			Boolean isPrivate = false;
 			String userID = "";
+			String nickname = "";
 			try
 			{
 				Entity entity = datastore.get(blob);
 				userID = (String) entity.getProperty("ownerid");
+				nickname = (String) entity.getProperty("nickname");
 				isPrivate = (Boolean) entity.getProperty("isPrivate");
 			}
 			catch (EntityNotFoundException e)
@@ -59,10 +61,10 @@ public class GetBlobs extends HttpServlet
 				e.printStackTrace();
 			}
 			
-			if (!isPrivate || userService.isUserLoggedIn())
+			if (!isPrivate || req.getSession().getAttribute("session") != null)
 			{
 				String imageUrl = imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(b.getBlobKey()));
-				i = new Image(imageUrl, userID, b.getFilename(), isPrivate, b.getBlobKey().getKeyString());
+				i = new Image(imageUrl, userID, nickname, b.getFilename(), isPrivate, b.getBlobKey().getKeyString());
 				images.add(i);
 			}
 				

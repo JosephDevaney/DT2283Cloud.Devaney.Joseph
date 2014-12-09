@@ -15,11 +15,7 @@ public class PictureBoxServlet extends HttpServlet
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException
 	{
-		resp.setContentType("text/plain"); 								// Set the context of the response to plain text
-		resp.getWriter().println("Has it changed?"); 					// Get a writer to print the response
-
-		HttpSession session = null;
-		
+		HttpSession session = req.getSession();
 		User user = null;
 		UserService userService = UserServiceFactory.getUserService(); 	// Create a UserServiceFactory object
 
@@ -31,19 +27,21 @@ public class PictureBoxServlet extends HttpServlet
 		String logoutURL = userService.createLogoutURL(thisURL); // Create a URL to logout and store this in a string
 
 		resp.setContentType("text/html"); // Set the context of the response to html text now
-
-		if (myPrincipal == null) // If line 20 returned a null reference instead of a Principal object indicating not logged in
+				
+		if (session.getAttribute("loggingOut") != null)
 		{
-			resp.getWriter().println("<p>You are Not Logged In time</p>"); // Inform User they are not logged in
-			resp.getWriter().println(
-					"<p>You can <a href=\"" + loginURL
-							+ "\">sign in here</a>.</p>"); // Give them a link to login at
-			resp.getWriter().println("<p>Click <a href=\"/getblobs\">here</a> to view all public images");
+			session.removeAttribute("loggingOut");
+			resp.sendRedirect("/getblobs");
+			return;
+		}
+		else if (myPrincipal == null) // If line 20 returned a null reference instead of a Principal object indicating not logged in
+		{
+			resp.sendRedirect(loginURL);
+			return;
 		} // end if not logged in
 
-		if (myPrincipal != null) // if line 20 returned a reference to an object, indicating user is logged in
+		if (myPrincipal != null && session.getAttribute("session") == null) // if line 20 returned a reference to an object, indicating user is logged in
 		{
-			session = req.getSession();
 			session.setAttribute("session", session.getId());
 			
 			user = userService.getCurrentUser();
@@ -58,7 +56,17 @@ public class PictureBoxServlet extends HttpServlet
 				session.setAttribute("userType", "loggedIn");
 			}
 			session.setAttribute("userID", user.getUserId());
-			resp.sendRedirect("/upload.jsp");
+			resp.sendRedirect("/getblobs");
+			return;
 		} // end if logged in
+		else if (myPrincipal != null && session.getAttribute("session") != null)
+		{
+			session.removeAttribute("session");
+			session.removeAttribute("userType");
+			session.removeAttribute("userID");
+			session.setAttribute("loggingOut", true);
+			resp.sendRedirect(logoutURL);
+			return;
+		}
 	}
 }

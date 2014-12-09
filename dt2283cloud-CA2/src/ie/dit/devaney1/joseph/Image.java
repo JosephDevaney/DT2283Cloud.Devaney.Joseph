@@ -10,6 +10,8 @@ public class Image implements Serializable
 	
 	private String owner;
 	
+	private String ownerNickName;
+	
 	private Boolean isPrivate;
 	
 	private String name;
@@ -21,13 +23,14 @@ public class Image implements Serializable
 		
 	}
 	
-	public Image(String url, String owner, String name, Boolean isPrivate, String blobkey)
+	public Image(String url, String owner, String nickname, String name, Boolean isPrivate, String blobkey)
 	{
 		setUrl(url);
 		setOwner(owner);
 		setName(name);
 		setIsPrivate(isPrivate);
 		setBlobKey(blobkey);
+		setOwnerNickName(nickname);
 	}
 
 	public String getUrl()
@@ -48,6 +51,16 @@ public class Image implements Serializable
 	public void setOwner(String owner)
 	{
 		this.owner = owner;
+	}
+
+	public String getOwnerNickName()
+	{
+		return ownerNickName;
+	}
+
+	public void setOwnerNickName(String ownerNickName)
+	{
+		this.ownerNickName = ownerNickName;
 	}
 
 	public Boolean getIsPrivate()

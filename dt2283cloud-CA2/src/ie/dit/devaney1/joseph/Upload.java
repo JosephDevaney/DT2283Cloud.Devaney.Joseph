@@ -39,13 +39,13 @@ public class Upload extends HttpServlet
 		String isPrivate = req.getParameter("isPrivate");
 		
 		Boolean privacy = null;
-		if (isPrivate == null)
+		if (isPrivate != null)
 		{
-			privacy = false;
+			privacy = true;
 		}
 		else
 		{
-			privacy = true;
+			privacy = false;
 		}
 
 		if (blobKeys == null)
@@ -59,6 +59,7 @@ public class Upload extends HttpServlet
 				Key blob = KeyFactory.createKey("blobImage", blobKey.getKeyString());
 				Entity image = new Entity(blob);
 				image.setProperty("ownerid",  userService.getCurrentUser().getUserId());
+				image.setProperty("nickname", userService.getCurrentUser().getNickname());
 				image.setProperty("isPrivate", privacy);
 				image.setProperty("blobkey", blobKey);
 				
