@@ -1,8 +1,4 @@
-*
-!*/
-!*.jar
-!*.java
-!*.html
-!*.xml
-!*.jsp
-!.gitignore
+*.jar
+*.class
+war/WEB-INF/appengine-generated
+!war/WEB-INF/lib
