@@ -78,14 +78,15 @@
 									<input type="submit" class="btn btn-danger" value="Delete" >
 								</form>
 							</dd>
+							
+						<% } %>
 							<dd>
-								<form action="/serve" method="POST" >
-									<input type="hidden" name="blobkey" value="<%= image.getBlobKey() %>" >
-									<input type="submit" class="btn btn-info" value="Download" >
-								</form>
-							</dd>
-						<% }
-						}%>	
+							<form action="/serve" method="POST" >
+								<input type="hidden" name="blobkey" value="<%= image.getBlobKey() %>" >
+								<input type="submit" class="btn btn-info" value="Download" >
+							</form>
+						</dd>
+						<%}%>	
 						</dl>
 					</div>
 				</div>

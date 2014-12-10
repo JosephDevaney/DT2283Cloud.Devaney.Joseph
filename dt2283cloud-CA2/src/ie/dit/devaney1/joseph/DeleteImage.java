@@ -20,31 +20,42 @@ public class DeleteImage extends HttpServlet
 {
 	private static final long	serialVersionUID	= 1L;
 
+	/**  
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * @see com.google.appengine.api.datastore.Key
+	 * @see com.google.appengine.api.datastore.Entity
+	 * @see com.google.appengine.api.datastore.DatastoreService
+	 * @see com.google.appengine.api.blobstore.BlobstoreService
+	 * 
+	 * Deletes an image from Blobstore and DataStore
+	 * 
+	 * @param req HttpServletRequest object
+	 * @param res HttpServletResponse object
+	 * 
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws IOException
 	{
 		DatastoreService dataStoreService = DatastoreServiceFactory.getDatastoreService();
 		BlobstoreService blobService = BlobstoreServiceFactory.getBlobstoreService();
 		
-		String blobKeyString = (String) req.getParameter("blobkey");
+		String blobKeyString = (String) req.getParameter("blobkey");	//Get the blobkey to be deleted from the request object
 
-		Key key = KeyFactory.createKey("blobImage", blobKeyString);
-		String nextJsp;
+		Key key = KeyFactory.createKey("blobImage", blobKeyString);	//Create a key for that blobkeys DataStore Entity
 		
 		try
 		{
-			Entity entity = dataStoreService.get(key);
-			blobService.delete((BlobKey) entity.getProperty("blobkey"));
-			dataStoreService.delete(key);
-			nextJsp = "/getblobs";
+			Entity entity = dataStoreService.get(key);	// Get the entity from the DataStore
+			blobService.delete((BlobKey) entity.getProperty("blobkey"));	//Delete the Blobkey from BlobStore
+			dataStoreService.delete(key);	//Delete the entity from DataStore
 		}
 		catch (EntityNotFoundException e)
 		{
-			nextJsp = "upload.jsp";
 			e.printStackTrace();
 		}
 		
-		res.sendRedirect(nextJsp);
+		res.sendRedirect("/getblobs");
 	}
 	
 
