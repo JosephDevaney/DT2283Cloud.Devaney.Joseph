@@ -25,6 +25,7 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">My Images</a></li>
             <li><a href="/upload.jsp">Upload</a></li>
+			<li><a href="/guides">User Guide</a></li>
             <li><a href="/picturebox">Login/Logout</a></li>
           </ul>
         </div><!-- /.nav-collapse -->

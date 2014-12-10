@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<title>Member Guide</title>
+</head>
+<body>
+	<nav class="navbar navbar-static-top navbar-inverse" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/getblobs">Picture Box</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">My Images</a></li>
+					<li><a href="/upload.jsp">Upload</a></li>
+					<li><a href="/guides">User Guide</a></li>
+					<li><a href="/picturebox">Login/Logout</a></li>
+				</ul>
+			</div><!-- /.nav-collapse -->
+		</div><!-- /.container -->
+	</nav><!-- /.navbar -->
+	
+	<div class="container" >
+		<p>You are logged in as a member. You can upload new images, delete your own images, view all private images and download all images.</p>
+		<p>To upload a new image <a href="../upload.jsp">click here</a>. 
+		You can then browse your computer for files to upload, all standard image formats are accepted via the Browse button.
+		Choose whether you would like the picture to be public or private with the Private checkbox. The default will be Public.
+		Finally, clicking on the upload button will submit your picture to PictureBox and you will be redirected to view all pictures.</p>
+		
+		<p>To Delete or Download an image, you can click on the relating button beside the picture.</p>
+		
+		<p>Too logout click the <a href="/picturebox" >Login/Logout</a> button.</p>
+	</div>
+</body>
+</html>

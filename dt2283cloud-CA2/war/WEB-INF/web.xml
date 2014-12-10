@@ -43,7 +43,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>DeleteImage</servlet-name>
 		<url-pattern>/deleteimage</url-pattern>
-	</servlet-mapping>    
+	</servlet-mapping>  
+	<servlet>
+		<servlet-name>Guides</servlet-name>
+		<servlet-class>ie.dit.devaney1.joseph.Guides</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Guides</servlet-name>
+		<url-pattern>/guides</url-pattern>
+	</servlet-mapping>   
 	<welcome-file-list>
 		<welcome-file>getblobs</welcome-file>
 	</welcome-file-list>

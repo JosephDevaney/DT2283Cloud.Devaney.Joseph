@@ -29,7 +29,7 @@ public class PictureBoxServlet extends HttpServlet
 	 * <p>
 	 * 
 	 * @param req HttpServletRequest object
-	 * @param res HttpServletResponse object
+	 * @param resp HttpServletResponse object
 	 * 
 	 * @throws IOException
 	 * 
