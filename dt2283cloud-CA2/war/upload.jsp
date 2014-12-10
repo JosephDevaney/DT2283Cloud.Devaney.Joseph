@@ -41,7 +41,7 @@
 	    <div class="container" >
 	    	<div class="row" >
 	    		<div class="col-md-8" >
-		    		<form action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
+		    		<form id="upload" action="<%= blobstoreService.createUploadUrl("/upload") %>" method="post" enctype="multipart/form-data">
 	    			<div class="input-group input-group-lg" >
 	    				<span class="input-group-addon" >
 	    					<input type="checkbox" name="isPrivate" value"private" 
@@ -53,10 +53,10 @@
 	    				</span>
 	    				<input type="text" name="foo" class="form-control" >
 	    				<span class="input-group-addon" >
-	    					<input type="file" name="myFile">
+	    					<input type="file" name="myFile" id="filename" >
 	    				</span>
 	    			</div>
-	    			<input type="submit" value="Upload" class="btn btn-primary btn-lg" >
+	    			<input type="button" value="Upload" class="btn btn-primary btn-lg" onclick="checkFile();">
 	    			</form>
 	    		</div>
 	    	</div>
@@ -64,3 +64,23 @@
 	 	 
 	</body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script>
+	function checkFile()
+	{
+		var file = $("#filename").val();
+		
+		if (file.indexOf(".tif") > 0 || file.indexOf(".gif") > 0 || file.indexOf(".jpeg") > 0 ||
+			file.indexOf(".jpg") > 0 || file.indexOf(".png") > 0)
+		{
+			document.getElementById("upload").submit();
+		}
+		else
+		{
+			alert("PictureBox can only accept .tif .gif .jpeg .jpg and .png files" + file);
+			returnToPreviousPage();
+		}
+		
+	}
+</script>
